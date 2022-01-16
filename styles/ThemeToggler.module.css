@@ -1,0 +1,14 @@
+.toggler {
+    /* color: var(--colors-primary); */
+    color: white;
+    cursor: pointer;
+    animation: fadeIn 5s;
+    -webkit-animation: fadeIn 0.5s;
+    -moz-animation: fadeIn 0.5s;
+    -o-animation: fadeIn 0.5s;
+    -ms-animation: fadeIn 0.5s;
+}
+
+/* .toggler[data-theme="dark"] {
+    color: green;
+} */

@@ -1,0 +1,31 @@
+.navbar {
+    /* color: var(--colors-primary); */
+    color: white;
+    /* mix-blend-mode: difference; */
+}
+
+.navbar-expanded {
+    background-color: var(--colors-background);
+}
+
+.expand-chevron {
+    cursor: pointer;   
+    transition: transform 200ms ease-out;
+}
+
+.mobile-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .25s ease-in-out;
+
+    background-color: var(--colors-background);
+}
+
+.mobile-panel-expanded {
+    max-height: 100vh;
+}
+
+.expanded {
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
