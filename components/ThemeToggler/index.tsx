@@ -3,7 +3,7 @@ import { MdDarkMode, MdWbSunny } from 'react-icons/md';
 import { SettingsContext } from '../../contexts/SettingsContextProvider';
 import styles from '../../styles/ThemeToggler.module.css'
 
-export default () => {
+export default function ThemeToggler() {
   const { theme, setTheme } = React.useContext(SettingsContext);
 
   const toggleTheme = () => {

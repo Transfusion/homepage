@@ -27,7 +27,42 @@ const NonDropdownA = styled.a.attrs({
     <span class="relative text-white">annoyed</span>
   </span> */}
 
-export default () => {
+class NavItem {
+  constructor(name: string,
+    url: string,
+    hideMobile: boolean,
+    external: boolean,) {
+    this.name = name;
+    this.url = url;
+    this.hideMobile = hideMobile;
+    this.external = external;
+  }
+
+  name: string;
+  url: string;
+  hideMobile: boolean;
+  external: boolean;
+}
+
+const navItems = [
+  {
+    name: 'bryan.kok@outlook.com',
+    url: 'mailto:bryan.kok@outlook.com',
+    hideMobile: true, external: true,
+  },
+  {
+    name: 'GitHub',
+    url: 'https://github.com/Transfusion',
+    hideMobile: true, external: true,
+  },
+  {
+    name: 'Resume',
+    url: 'https://github.com/Transfusion',
+    hideMobile: false, external: true,
+  }
+] as NavItem[]
+
+export default function Navbar() {
   const [mobileExpanded, setMobileExpanded] = useState(false);
 
   const toggleMobileExpanded = () => {
@@ -37,21 +72,20 @@ export default () => {
   return (
     <nav className={classNames('absolute', 'w-full', 'top-0', styles.navbar)}>
       <div className="mix-blend-difference fixed w-full flex justify-end p-2.5 space-x-3 hidden sm:flex">
-        <Link href='/'>
-          <NonDropdownA>
-            bryan.kok@outlook.com
-          </NonDropdownA>
-        </Link>
-        <Link href='/'>
-          <NonDropdownA>
-            GitHub
-          </NonDropdownA>
-        </Link>
-        <Link href='/'>
-          <NonDropdownA>
-            Resume
-          </NonDropdownA>
-        </Link>
+
+        {navItems.map(({ name, url, hideMobile, external }) =>
+          external ?
+            <NonDropdownA target="_blank" href={url}>
+              {name}
+            </NonDropdownA>
+            :
+            <Link href={url}>
+              <NonDropdownA>
+                {name}
+              </NonDropdownA>
+            </Link>
+        )}
+
         <ThemeToggler />
       </div>
 
@@ -62,19 +96,28 @@ export default () => {
         {/* inner container with padding */}
         <div className={classNames('pt-10', 'px-2', 'pb-2', 'space-y-1')}>
 
-          <Link href='/'>
-            <MobileA>GitHub</MobileA>
-          </Link>
+          {navItems
+            .filter(({ hideMobile }) => hideMobile)
+            .map(({ name, url, hideMobile, external }) =>
+              external ?
+                <MobileA target="_blank" href={url}>
+                  {name}
+                </MobileA>
+                :
+                <Link href={url}>
+                  <MobileA >
+                    {name}
+                  </MobileA>
+                </Link>
+            )}
 
-          <Link href='/'>
-            <MobileA>bryan.kok@outlook.com</MobileA>
-          </Link>
         </div>
-
       </div>
 
       {/* abbreviated mobile navbar */}
-      <div className="mix-blend-difference fixed w-full flex justify-end p-2.5 space-x-3 sm:hidden">
+      <div className={classNames('mix-blend-difference', 'fixed', 'w-full', 'flex', 'justify-end', 'p-2.5', 'space-x-3', {
+        'sm:hidden': !mobileExpanded
+      })}>
 
         <button onClick={toggleMobileExpanded}>
           <MdExpandMore className={
@@ -84,11 +127,20 @@ export default () => {
           } size={'1.5em'} />
         </button>
 
-        <Link href='/'>
-          <NonDropdownA>
-            Resume
-          </NonDropdownA>
-        </Link>
+        {navItems
+          .filter(({ hideMobile }) => !hideMobile)
+          .map(({ name, url, hideMobile, external }) =>
+            external ?
+              <NonDropdownA target="_blank" href={url}>
+                {name}
+              </NonDropdownA>
+              :
+              <Link href={url}>
+                <NonDropdownA>
+                  {name}
+                </NonDropdownA>
+              </Link>
+          )}
         <ThemeToggler />
       </div>
 

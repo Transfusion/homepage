@@ -85,7 +85,7 @@ export default function Home() {
 
         <div className="mt-10">
           <TitleComponent>Bryan Kok</TitleComponent>
-          <SubtitleComponent className="mt-5">Software developer who isn't afraid to work at <span className="font-semibold">all levels of the stack.</span></SubtitleComponent>
+          <SubtitleComponent className="mt-5">Software developer who isn&apos;t afraid to work at <span className="font-semibold">all levels of the stack.</span></SubtitleComponent>
         </div>
 
       </main>
