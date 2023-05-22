@@ -1,0 +1,61 @@
+@objc private func displayRefreshCb() {
+    guard let quat = self.motionManager.deviceMotion?.attitude.quaternion else {
+        return
+    }
+    
+    let gq = GLKQuaternionMake(Float(quat.x), Float(quat.y), Float(quat.z), Float(quat.w))
+    let yaw = Utils.rad2deg(rad: atan2f(2*(gq.x * gq.y + gq.z * gq.w), 1 - 2*(gq.y * gq.y + gq.z * gq.z)))
+    
+    // kalman filtering here if necessary
+    
+    let roll = Utils.rad2deg(rad: atan2f( 2*(gq.w * gq.x + gq.y * gq.z), 1 - 2 * (gq.x * gq.x + gq.y * gq.y)))
+    var pitch = 2 * (gq.w * gq.y - gq.z * gq.x)
+    if fabs(pitch) >= 1 {
+        pitch = Utils.rad2deg(rad: copysign(Float(Double.pi / 2), pitch))
+    }
+    else {
+        pitch = Utils.rad2deg(rad: asin(pitch))
+    }
+    
+    pitchLabel.text = String( (pitch * 1000).rounded() / 1000)
+    yawLabel.text = String( (yaw * 1000).rounded() / 1000)
+    rollLabel.text = String( (roll * 1000).rounded() / 1000 )
+
+    // Calculate the current viewport (roll, yaw). Do not confuse with (x, y)! Yaw in the *HORIZONTAL* direction whereas roll is in the *VERTICAL* direction
+    let roll360 = Utils.to360System(deg: roll)
+    let yaw360 = Utils.to360System(deg: yaw)
+    
+    let upperLeftCorner = (roll360, yaw360)
+    
+    // update the positions of the butterflies now
+    self.butterflies.forEach { butterflyWrapper in
+        
+//            Project roll_coord and yaw_coord onto the screen
+        var butterflyRollCoord = butterflyWrapper.roll_coord
+        var butterflyYawCoord = butterflyWrapper.yaw_coord
+        
+        if upperLeftCorner.0 >= 360 && ( 0 <= butterflyRollCoord && butterflyRollCoord <= (upperLeftCorner.0 - 360)) {
+            butterflyRollCoord += 360
+        }
+        
+        if upperLeftCorner.1 >= 360 && ( 0 <= butterflyYawCoord && butterflyYawCoord <= (upperLeftCorner.1 - 360)) {
+            butterflyYawCoord += 360
+        }
+        
+        butterflyWrapper.animatedImageView.center.x = self.catchView.bounds.width * CGFloat( Float(upperLeftCorner.1 - butterflyYawCoord)
+            / CatchViewController.CATCH_VIEWPORT_WIDTH_DEGREES )
+        butterflyWrapper.animatedImageView.center.y = self.catchView.bounds.height * CGFloat( Float(upperLeftCorner.0 - butterflyRollCoord)
+            / CatchViewController.CATCH_VIEWPORT_HEIGHT_DEGREES )
+        
+        // If it intersects with the crosshairs (rather than within, otherwise too hard to catch) !
+        if butterflyWrapper.animatedImageView.frame.intersects(self.focusPoint.frame) {
+            butterflyWrapper.enableBorder()
+        } else {
+            butterflyWrapper.disableBorder()
+        }
+        
+        butterflyWrapper.moveInRandomDirection()
+        
+    }
+    
+}

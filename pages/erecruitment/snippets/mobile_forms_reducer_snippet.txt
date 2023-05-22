@@ -1,0 +1,122 @@
+export const createForm = () => {
+  return async (dispatch, getState) => {
+    // actually write to realm DB, generate a UUID
+    let newFormId = createRealmForm();
+
+    // create file storage area
+    await createFormFileFolder(newFormId);
+
+    dispatch({
+      type: FORM_STATE_ACTIONS.CREATE_FORM,
+      formId: newFormId,
+    });
+
+    return newFormId;
+  };
+};
+
+export const deleteRealmForm = (formId) => {
+  let realmInstance = getRealmInstance();
+  realmInstance.write(() => {
+    SCHEMAS[SCHEMAS.length - 1].schema.forEach((schema) => {
+      let _object = realmInstance.objectForPrimaryKey(schema.name, formId);
+      realmInstance.delete(_object);
+    });
+  });
+};
+
+export const deleteForm = (formId) => {
+  return async (dispatch, getState) => {
+    deleteRealmForm(formId);
+
+    // delete file storage area
+    await deleteAllFormData(formId);
+
+    dispatch({
+      formId,
+      type: FORM_STATE_ACTIONS.DELETE_FORM,
+    });
+  };
+};
+
+// for use case 5. above
+export const resetSectionData = (formId, schemaName) => {
+  let realmInstance = getRealmInstance();
+  let _object = realmInstance.objectForPrimaryKey(schemaName, formId);
+  let object = fromRealmObject(_object);
+  object['modified'] = false;
+  return {
+    type: FORM_STATE_ACTIONS.RESET_FORM_SECTION_DATA,
+    payload: {schema: schemaName, formId, data: object},
+  };
+};
+
+...
+
+export const newEFormsReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case FORM_STATE_ACTIONS.CREATE_FORM:
+      let newState = {...state};
+
+      newState.forms = {...state.forms};
+      newState.forms[action.formId] = {};
+      SCHEMAS[SCHEMAS.length - 1].schema.forEach((schema) => {
+        let realmInstance = getRealmInstance();
+        let _object = realmInstance.objectForPrimaryKey(
+          schema.name,
+          action.formId,
+        );
+        let object = fromRealmObject(_object);
+        object['modified'] = false;
+        newState.forms[action.formId][schema.name] = object;
+      });
+
+      return newState;
+
+    case FORM_STATE_ACTIONS.DELETE_FORM:
+      newState = {...state};
+      delete newState.forms[action.formId];
+      newState.forms = {...state.forms};
+      return newState;
+
+    case FORM_STATE_ACTIONS.UPDATE_FORM_SECTION_DATA: {
+      let {formId, schema, key, data} = action;
+
+      let newForms = {...state.forms};
+      newForms[formId][schema][key] = data;
+      newForms[formId][schema].modified = true;
+      // one of the other schemas has been modified.
+      newForms[formId][FORMS_SCHEMA].modified = true;
+      return {
+        ...state,
+        forms: newForms,
+      };
+    }
+
+    case FORM_STATE_ACTIONS.RESET_FORM_SECTION_DATA: {
+      const {formId, schema, data} = action.payload;
+      let newForms = {...state.forms};
+      newForms[formId][schema] = data;
+      newForms[formId][FORMS_SCHEMA].modified = _isFormReallyModified(
+        newForms[formId],
+      );
+      return {
+        ...state,
+        forms: newForms,
+      };
+    }
+
+    case FORM_STATE_ACTIONS.MARK_FORM_SUBMITTED:
+      const {formId} = action;
+      let newForms = {...state.forms};
+      newForms[formId][FORMS_SCHEMA].submitted = new Date();
+      return {
+        ...state,
+        forms: newForms,
+      };
+
+      ...
+  }
+
+  return state;
+};

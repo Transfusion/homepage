@@ -1,0 +1,44 @@
+$DELETED = -1;
+$HASH_CHANGED = 1;
+$NEW = 2;
+
+/*[{
+    "drug_id": 1,
+    "hash": "4Aid+/cssFK2Dv0lPI3Qv8jH/uKYnM4zNbglWUvqh2o="
+},{
+            "drug_id": 2,
+    "hash": "ew6IP+Zxy25GUCFR3vuGU168w2RI7gpAFGJxwLL9LeI="
+}]*/
+
+$output = [];
+$hashes = json_decode($request->getContent(), true);
+foreach ($hashes as $hash_entry) {
+    // Check in DB whether the particular id - hash combo exists; get by ID first
+    $drug = DrugCurrentVersion::whereDrugId($hash_entry['drug_id'])->take(1)->get();
+    if ($drug->isEmpty()) {
+        array_push($output, array('drug_id' => $hash_entry['drug_id'], 'status' => $DELETED));
+    } else {
+        $drug = $drug[0];
+        $drug_output = [];
+        if (base64_encode(hex2bin($drug->hash)) !== $hash_entry['hash']) {
+            foreach (self::DRUG_FIELDS as $drug_field) {
+                $drug_output[$drug_field] = $drug[$drug_field];
+            }
+            $drug_output['hash'] = base64_encode(hex2bin($drug['hash']));
+            array_push($output, array('drug_id' => $hash_entry['drug_id'], 'status' => $HASH_CHANGED, 'drug' => $drug_output));
+        }
+    }
+}
+
+// get all the new drugs
+$new_drugs = DrugCurrentVersion::query()->whereNotIn('drug_id', array_column($hashes, 'drug_id'))->get();
+foreach ($new_drugs as $new_drug) {
+    $drug_output = [];
+    foreach (self::DRUG_FIELDS as $drug_field) {
+        $drug_output[$drug_field] = $new_drug[$drug_field];
+    }
+    $drug_output['hash'] = base64_encode(hex2bin($new_drug['hash']));
+    array_push($output, array('drug_id' => $new_drug['drug_id'], 'status' => $NEW, 'drug' => $drug_output));
+}
+
+return response()->json($output);

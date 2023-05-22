@@ -1,0 +1,23 @@
+.device-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    /* max-width: inherit;  */
+    margin: auto;
+    
+    /* width: 100%; */
+    /* z-index: 999; */
+}
+
+.screenshot_19dot5_9 {
+    padding-top: 4.8%;
+    margin: auto;
+    width: 88.8%;
+}
+
+.screenshot_16_9 {
+    padding-top: 23%;
+    margin: auto;
+    width: 87%;
+}

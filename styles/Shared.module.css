@@ -1,0 +1,13 @@
+.container {
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  /* height: 100vh; */
+  transition: background-color 200ms ease;
+  /* background color on <body> is set in globals.css for iOS Safari */
+  background-color: var(--colors-background);
+  color: var(--colors-primary);
+}

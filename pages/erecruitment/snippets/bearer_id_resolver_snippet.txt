@@ -1,0 +1,21 @@
+class BearerSessionIdResolver : HttpSessionIdResolver {
+    private val sessionIdHeader = "X-Session-ID"
+
+    override fun setSessionId(request: HttpServletRequest?, response: HttpServletResponse?, sessionId: String?) {
+        response?.setHeader(sessionIdHeader, sessionId)
+    }
+
+    override fun expireSession(request: HttpServletRequest?, response: HttpServletResponse?) {
+        response?.setHeader(sessionIdHeader, "")
+    }
+
+    override fun resolveSessionIds(request: HttpServletRequest?): List<String> {
+        //Try loading from Bearer authorization header first, then from X-Session-ID
+        val headerValue = request?.getHeader("Authorization")
+                ?.takeIf { it.startsWith("Bearer ") }
+                ?.substring(7)
+                ?: request?.getHeader(sessionIdHeader)
+
+        return headerValue?.let { listOf(it) } ?: emptyList()
+    }
+}

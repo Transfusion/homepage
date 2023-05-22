@@ -1,0 +1,107 @@
+public function drugSyncChangeState(Request $request)
+{
+  $DELETED = -1;
+  $HASH_CHANGED = 1;
+  $NEW = 2;
+
+  $hashes = $request->input("hashes");
+
+  $lastSync = $request->input("lastSync");
+  $forceSyncAt = SysKV::query()->whereKey("force_sync_at")->first();
+  $forceSync = false;
+
+  if (!empty($lastSync) && !empty($forceSyncAt)) {
+      $lastSync = Carbon::parse($lastSync);
+      $forceSyncAt = Carbon::parse($forceSyncAt->value);
+      $forceSync = $lastSync <= $forceSyncAt;
+  }
+
+  $changedState = DB::transaction(function () use ($hashes, $forceSync, $DELETED, $HASH_CHANGED, $NEW) {
+      /**
+        * Prepare temporary state table.
+        */
+      $tempTableName = str_replace('.', '', uniqid("drugsync_temp_", true));
+
+      DB::statement("
+          CREATE TEMPORARY TABLE $tempTableName (
+              drug_id INT UNSIGNED,
+              hash BINARY(32),
+              PRIMARY KEY (drug_id)
+          );
+      ");
+
+      $hashInsert = [];
+      foreach ($hashes as $id => $hash) {
+          $hashInsert[] = ['drug_id' => $id, 'hash' => $this->hex2bin($hash)]; //If hash is not valid hex, will sync it.
+      }
+
+      DB::table($tempTableName)->insert($hashInsert);
+
+      /**
+        * SQL for finding deleted drugs.
+        * @noinspection SqlResolve
+        */
+      $deletedSQL = "
+          SELECT $DELETED AS change_status, COALESCE(t.drug_id, d.drug_id) as drug_id, d.hash
+          FROM $tempTableName t
+                    LEFT JOIN (select * from drugs_current d where deleted_at IS NULL) d ON t.drug_id = d.drug_id
+          WHERE d.drug_id IS NULL
+      ";
+
+      /**
+        * SQL for finding new drugs.
+        * @noinspection SqlResolve
+        */
+      $newSQL = "
+          SELECT $NEW as change_status, COALESCE(t.drug_id, d.drug_id) as drug_id, d.hash
+          FROM $tempTableName t
+                    RIGHT JOIN (select * from drugs_current d where deleted_at IS NULL) d
+                              ON t.drug_id = d.drug_id
+          WHERE t.drug_id IS NULL
+      ";
+
+      /**
+        * SQL for finding changed drugs.
+        */
+      $changedHashSQL = "
+          SELECT $HASH_CHANGED AS change_status, d.drug_id, d.hash
+          FROM (select * from drugs_current d where deleted_at IS NULL) d
+          WHERE drug_id IN (SELECT DISTINCT drug_id FROM $tempTableName)
+            AND NOT EXISTS(SELECT 1
+                            FROM $tempTableName
+                            WHERE $tempTableName.drug_id = d.drug_id
+                              AND $tempTableName.hash = d.hash);            
+      ";
+
+      /**
+        * SQL that just forces sync for existing drugs.
+        */
+      $skipHashCheckSQL = "
+          SELECT $HASH_CHANGED AS change_status, d.drug_id, d.hash
+          FROM (select * from drugs_current d where deleted_at IS NULL) d
+          WHERE drug_id IN (SELECT DISTINCT drug_id FROM $tempTableName);      
+      ";
+
+      $step3 = $forceSync ? $skipHashCheckSQL : $changedHashSQL;
+
+      $results = DB::select("
+          $deletedSQL
+          UNION
+          $newSQL
+          UNION
+          $step3
+      ");
+      DB::statement("DROP TABLE $tempTableName;"); // Drop the temporary state table.
+      return $results; //Return and end transaction.
+  });
+
+  $results = [];
+  foreach ($changedState as $row) {
+      $results[] = [
+          'drug_id' => (int)$row->drug_id,
+          'status' => (int)$row->change_status
+      ];
+  }
+
+  return response()->json($results);
+}

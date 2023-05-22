@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react';
 import Navbar from '../Navbar';
+import Footer from '../Footer';
 export default function Layout(props: PropsWithChildren<{}>) {
   const { children } = props;
   return (
@@ -8,7 +9,7 @@ export default function Layout(props: PropsWithChildren<{}>) {
       {/* <main> */}
       {children}
       {/* </main> */}
-      {/* <Footer /> */}
+      <Footer />
     </>
   )
 }

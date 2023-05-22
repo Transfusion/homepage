@@ -46,8 +46,13 @@ class NavItem {
 
 const navItems = [
   {
-    name: 'bryan.kok@outlook.com',
-    url: 'mailto:bryan.kok@outlook.com',
+    name: 'Home',
+    url: '/',
+    hideMobile: false, external: false,
+  },
+  {
+    name: 'bryan.wyern1@gmail.com',
+    url: 'mailto:bryan.wyern1@gmail.com',
     hideMobile: true, external: true,
   },
   {
@@ -56,8 +61,13 @@ const navItems = [
     hideMobile: true, external: true,
   },
   {
+    name: 'LinkedIn',
+    url: 'https://linkedin.com/in/bryan-kok',
+    hideMobile: true, external: true,
+  },
+  {
     name: 'Resume',
-    url: 'https://github.com/Transfusion',
+    url: 'https://r2.bryankok.com/assets/Bryan_Kok_Resume.pdf',
     hideMobile: false, external: true,
   }
 ] as NavItem[]
@@ -70,26 +80,8 @@ export default function Navbar() {
   }
 
   return (
-    <nav className={classNames('absolute', 'w-full', 'top-0', styles.navbar)}>
-      <div className="mix-blend-difference fixed w-full flex justify-end p-2.5 space-x-3 hidden sm:flex">
-
-        {navItems.map(({ name, url, hideMobile, external }) =>
-          external ?
-            <NonDropdownA target="_blank" href={url}>
-              {name}
-            </NonDropdownA>
-            :
-            <Link href={url}>
-              <NonDropdownA>
-                {name}
-              </NonDropdownA>
-            </Link>
-        )}
-
-        <ThemeToggler />
-      </div>
-
-      {/* expanding mobile panel */}
+    <>
+      {/* expanding mobile panel (don't want it to be part of the mix-blend-mode) */}
       <div className={classNames('fixed', 'w-full', styles['mobile-panel'], {
         [styles['mobile-panel-expanded']]: mobileExpanded
       }, 'shadow-lg', 'shadow-teal-600/50')}>
@@ -114,22 +106,10 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* abbreviated mobile navbar */}
-      <div className={classNames('mix-blend-difference', 'fixed', 'w-full', 'flex', 'justify-end', 'p-2.5', 'space-x-3', {
-        'sm:hidden': !mobileExpanded
-      })}>
+      <nav className={classNames('fixed', 'mix-blend-difference', 'w-full', 'top-0', styles.navbar)}>
+        <div className="w-full flex justify-end p-2.5 space-x-3 hidden sm:flex">
 
-        <button onClick={toggleMobileExpanded}>
-          <MdExpandMore className={
-            classNames(styles['expand-chevron'], {
-              [styles.expanded]: mobileExpanded
-            })
-          } size={'1.5em'} />
-        </button>
-
-        {navItems
-          .filter(({ hideMobile }) => !hideMobile)
-          .map(({ name, url, hideMobile, external }) =>
+          {navItems.map(({ name, url, hideMobile, external }) =>
             external ?
               <NonDropdownA target="_blank" href={url}>
                 {name}
@@ -141,10 +121,43 @@ export default function Navbar() {
                 </NonDropdownA>
               </Link>
           )}
-        <ThemeToggler />
-      </div>
+
+          <ThemeToggler />
+        </div>
 
 
-    </nav>
+        {/* abbreviated mobile navbar */}
+        <div className={classNames('mix-blend-difference', 'fixed', 'w-full', 'flex', 'justify-end', 'p-2.5', 'space-x-3', {
+          'sm:hidden': !mobileExpanded
+        })}>
+
+          <button onClick={toggleMobileExpanded}>
+            <MdExpandMore className={
+              classNames(styles['expand-chevron'], {
+                [styles.expanded]: mobileExpanded
+              })
+            } size={'1.5em'} />
+          </button>
+
+          {navItems
+            .filter(({ hideMobile }) => !hideMobile)
+            .map(({ name, url, hideMobile, external }) =>
+              external ?
+                <NonDropdownA target="_blank" href={url}>
+                  {name}
+                </NonDropdownA>
+                :
+                <Link href={url}>
+                  <NonDropdownA>
+                    {name}
+                  </NonDropdownA>
+                </Link>
+            )}
+          <ThemeToggler />
+        </div>
+
+
+      </nav>
+    </>
   )
 }

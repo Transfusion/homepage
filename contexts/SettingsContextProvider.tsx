@@ -52,6 +52,12 @@ export const SettingsContextProvider = (props: { children: any }) => {
     _setTheme(theme);
     window.localStorage.setItem('theme', theme);
     document.body.dataset.theme = theme;
+
+    // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name/theme-color
+    // refer also to _document.js
+    // bug with #ffffff
+    document.querySelector('meta[name="theme-color"]')
+      ?.setAttribute('content', document.body.dataset.theme === 'dark' ? '#000' : '#fffffe');
   }
 
   const context = React.useMemo(

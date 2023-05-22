@@ -2,6 +2,7 @@
     /* color: var(--colors-primary); */
     color: white;
     /* mix-blend-mode: difference; */
+    z-index: 2;
 }
 
 .navbar-expanded {
@@ -19,6 +20,7 @@
     transition: max-height .25s ease-in-out;
 
     background-color: var(--colors-background);
+    z-index: 1;
 }
 
 .mobile-panel-expanded {

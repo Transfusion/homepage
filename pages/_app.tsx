@@ -1,4 +1,6 @@
 import '../styles/globals.css'
+import '../styles/prism-okaidia.css'
+
 import type { AppProps } from 'next/app'
 import React, { ReactNode } from 'react'
 
