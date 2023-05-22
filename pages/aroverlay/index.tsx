@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Image from 'next/image';
 import BlurbSubtitle from "../../components/BlurbSubtitle";
 import BlurbTitle from "../../components/BlurbTitle";
 import HeaderLayout from "../../components/HeaderLayout";
@@ -40,18 +41,18 @@ export default function AROverlayPage() {
         <h2>The Algorithm</h2>
 
         <div className="mx-auto max-w-[350px]">
-          <a href={ar_perceptual_viewport.src} target='_blank'>
-            <img src={ar_perceptual_viewport.src} />
+          <a href={ar_perceptual_viewport.src} target='_blank' rel="noreferrer">
+            <Image src={ar_perceptual_viewport} alt="Illustration of the perceptual viewport that the mobile device sees in an AR application" />
           </a>
         </div>
 
         <div className="mx-auto max-w-[400px]">
-          <a href={ar_viewport_projection.src} target='_blank'>
-            <img src={ar_viewport_projection.src} />
+          <a href={ar_viewport_projection.src} target='_blank' rel="noreferrer">
+            <Image src={ar_viewport_projection} alt="Illustration of how the butterfly sprite is placed within the perceptual viewport" />
           </a>
         </div>
 
-        <p>The <code>(roll, yaw)</code> tuple is arbitrarily designated as the upper left corner of the perceptual viewport, which in turn is defined as "the slice" of the 360-degree world that the camera sees in AR space.</p>
+        <p>The <code>(roll, yaw)</code> tuple is arbitrarily designated as the upper left corner of the perceptual viewport, which in turn is defined as &quot;the slice&quot; of the 360-degree world that the camera sees in AR space.</p>
 
         <pre className="line-numbers">
           <code className="language-swift">

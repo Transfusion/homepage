@@ -3,6 +3,9 @@ import styles from '../../styles/PixelMockup.module.css'
 
 import pixel_4 from '../../public/img/device-frames/google-pixel4-clearlywhite-portrait.png';
 import pixel_1 from '../../public/img/device-frames/pixel_1.png';
+import { StaticImageData } from 'next/image';
+
+import Image from 'next/image';
 
 const AVAILABLE_MODELS = {
   // 13: {
@@ -33,8 +36,8 @@ export function PixelMockup(props: Pixel4MockupProps) {
 
   return <div className="max-w-[500px] relative snap-center drop-shadow-lg" style={{ minWidth: `${renderWidth}px`, minHeight: renderHeight }}>
     <img className={styles['screenshot_' + aspectRatio]} src={pic.src} />
-    <a href={pic.src} target='_blank'>
-      <img className={styles['device-frame']} src={frame.src} />
+    <a href={pic.src} target='_blank' rel="noreferrer">
+      <Image className={styles['device-frame']} src={frame} alt={''} />
     </a>
   </div>
 }
@@ -59,7 +62,7 @@ export function Pixel4VideoMockup(props: Pixel4VideoMockupProps) {
     {/* <img className={styles['screenshot_' + aspectRatio]} src={pic.src} /> */}
     <video className={styles['screenshot_' + aspectRatio]} src={url} width={renderWidth} autoPlay muted controls loop playsInline />
     {/* <a href={pic.src} target='_blank'> */}
-    <img className={classnames(styles['device-frame'], 'pointer-events-none')} src={frame.src} />
+    <Image className={classnames(styles['device-frame'], 'pointer-events-none')} src={frame} alt={''} />
     {/* </a> */}
   </div>
 }

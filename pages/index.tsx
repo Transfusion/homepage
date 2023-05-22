@@ -1,5 +1,5 @@
 import Head from 'next/head'
-// import Image from 'next/image'
+import Image from 'next/image'
 import React, { ReactNode } from 'react'
 import HeaderLayout from '../components/HeaderLayout'
 import SectionTitleComponent from '../components/SectionTitleComponent'
@@ -103,7 +103,7 @@ export default function Home() {
 
         <div className="mt-20">
 
-          <img className="max-w-[250px] p-1.5 my-5 rounded-full ring-2 ring-gray-400 dark:ring-gray-200" src={devfest_headshot.src} alt="Bordered avatar" />
+          <Image className="max-w-[250px] p-1.5 my-5 rounded-full ring-2 ring-gray-400 dark:ring-gray-200" src={devfest_headshot} alt="Bordered avatar" />
 
 
           <TitleComponent>Bryan Kok</TitleComponent>
@@ -188,7 +188,7 @@ export default function Home() {
 
         <div>
           <div>
-            <em><u><a target="_blank" href="https://github.com/project-spectra/test-app">Online Community-based Design of Free and Open Source Software for Voice Training</a></u></em>: Proceedings of the ACM on Human-Computer Interaction, Vol. 4, CSCW '20
+            <em><u><a target="_blank" href="https://github.com/project-spectra/test-app" rel="noreferrer">Online Community-based Design of Free and Open Source Software for Voice Training</a></u></em>: Proceedings of the ACM on Human-Computer Interaction, Vol. 4, CSCW '20
           </div>
         </div>
 

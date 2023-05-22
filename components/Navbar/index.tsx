@@ -96,7 +96,7 @@ export default function Navbar() {
                   {name}
                 </MobileA>
                 :
-                <Link href={url}>
+                <Link legacyBehavior href={url}>
                   <MobileA >
                     {name}
                   </MobileA>
@@ -115,7 +115,7 @@ export default function Navbar() {
                 {name}
               </NonDropdownA>
               :
-              <Link href={url}>
+              <Link legacyBehavior href={url}>
                 <NonDropdownA>
                   {name}
                 </NonDropdownA>
@@ -147,7 +147,7 @@ export default function Navbar() {
                   {name}
                 </NonDropdownA>
                 :
-                <Link href={url}>
+                <Link legacyBehavior href={url}>
                   <NonDropdownA>
                     {name}
                   </NonDropdownA>

@@ -46,7 +46,7 @@ export default function Radically(props: React.ComponentPropsWithoutRef<"div">) 
 
       <p>Used Workbox to manage the lifecycle of the service worker caching the served JSON data, enabling offline installation as a Progressive Web App.</p>
 
-      <p>Used the Adobe AFDKO font creation toolkit to create <a target="_blank" href="http://radically.github.io/hanazonolite">an OpenType font</a> with 100% CJK Unicode codepoint coverage as a bonus.</p>
+      <p>Used the Adobe AFDKO font creation toolkit to create <a target="_blank" href="http://radically.github.io/hanazonolite" rel="noreferrer">an OpenType font</a> with 100% CJK Unicode codepoint coverage as a bonus.</p>
 
     </article>
 

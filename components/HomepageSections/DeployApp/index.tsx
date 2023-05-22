@@ -41,7 +41,7 @@ export default function DeployApp(props: React.ComponentPropsWithoutRef<"div">) 
         Created this utility to solve real-world hurdles encountered during enterprise app development and beta testing, such as data handling requirements and faster, more reliable installs in a corporate network environment.
       </p>
 
-      <p>Wrote and unit tested <a target="_blank" href="https://github.com/Transfusion/app-info-java-graalvm">Java wrappers for existing app binary parsing libraries</a> in other languages such as Ruby, leveraging the GraalVM polyglot runtime.</p>
+      <p>Wrote and unit tested <a target="_blank" href="https://github.com/Transfusion/app-info-java-graalvm" rel="noreferrer">Java wrappers for existing app binary parsing libraries</a> in other languages such as Ruby, leveraging the GraalVM polyglot runtime.</p>
 
       <p>Designed a horizontally scalable microservice architecture to parallelize CPU-intensive operations with worker microservices, using event-driven inter-service communication over AMQP / RabbitMQ.</p>
 

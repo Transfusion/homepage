@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Image from 'next/image';
 import BlurbSubtitle from "../../components/BlurbSubtitle";
 import BlurbTitle from "../../components/BlurbTitle";
 import HeaderLayout from "../../components/HeaderLayout";
@@ -76,7 +77,7 @@ export default function ERecruitmentPage() {
         <p><strong>spring-session</strong> supports these two use cases out of the box. The remaining challenge was to figure out if there were other means of passing the session ID besides the default <strong>JSESSIONID</strong> cookie.</p>
 
         <p>
-          Extremely conveniently, the <code><a target="_blank" href="https://docs.spring.io/spring-session/docs/current/api/org/springframework/session/web/http/HttpSessionIdResolver.html">HttpSessionIdResolver</a></code> interface allows us to customize the way that the session ID is resolved from any incoming request.
+          Extremely conveniently, the <code><a target="_blank" href="https://docs.spring.io/spring-session/docs/current/api/org/springframework/session/web/http/HttpSessionIdResolver.html" rel="noreferrer">HttpSessionIdResolver</a></code> interface allows us to customize the way that the session ID is resolved from any incoming request.
 
           In eRecruitment's case, it was as simple as:
         </p>
@@ -106,12 +107,12 @@ export default function ERecruitmentPage() {
         </p>
 
         <p>
-          Certain attributes (e.g. phone number and other identification) that would belong in a <strong>Profile</strong> entity were migrated to <a target="_blank" href="https://www.keycloak.org/docs/15.0/server_admin/#_user-attributes">KeyCloak User Attributes</a> for other related applications to consume after granting them access to <a target="_blank" href="https://www.keycloak.org/docs-api/19.0.1/rest-api/">KeyCloak's REST API</a> with service accounts. Having KeyCloak expose new endpoints to filter or query for those attributes was as simple as implementing a new <a target="_blank" href="https://www.keycloak.org/server/configuration-provider">Service Provider Interface</a>, in particular <code>RealmProvider</code> for realm-wide attributes.
+          Certain attributes (e.g. phone number and other identification) that would belong in a <strong>Profile</strong> entity were migrated to <a target="_blank" href="https://www.keycloak.org/docs/15.0/server_admin/#_user-attributes" rel="noreferrer">KeyCloak User Attributes</a> for other related applications to consume after granting them access to <a target="_blank" href="https://www.keycloak.org/docs-api/19.0.1/rest-api/" rel="noreferrer">KeyCloak's REST API</a> with service accounts. Having KeyCloak expose new endpoints to filter or query for those attributes was as simple as implementing a new <a target="_blank" href="https://www.keycloak.org/server/configuration-provider" rel="noreferrer">Service Provider Interface</a>, in particular <code>RealmProvider</code> for realm-wide attributes.
         </p>
 
-        <p>Many of these attributes were often-read but very rarely written to, such as "Introducer of the agent" or "Agent code." Naturally, to avoid a round trip to KeyCloak every time the user accessed their profile details, these were also cached with an appropriate TTL using <a target="_blank" href="https://docs.spring.io/spring-data/redis/docs/current/api/org/springframework/data/redis/cache/RedisCacheManager.html">Spring's RedisCacheManager</a>.</p>
+        <p>Many of these attributes were often-read but very rarely written to, such as "Introducer of the agent" or "Agent code." Naturally, to avoid a round trip to KeyCloak every time the user accessed their profile details, these were also cached with an appropriate TTL using <a target="_blank" href="https://docs.spring.io/spring-data/redis/docs/current/api/org/springframework/data/redis/cache/RedisCacheManager.html" rel="noreferrer">Spring's RedisCacheManager</a>.</p>
 
-        <p>After containerizing eRecruitment, <a target="_blank" href="https://doc.traefik.io/traefik/providers/docker/">Traefik with the Docker provider</a> was used as a self-contained ingress solution.</p>
+        <p>After containerizing eRecruitment, <a target="_blank" href="https://doc.traefik.io/traefik/providers/docker/" rel="noreferrer">Traefik with the Docker provider</a> was used as a self-contained ingress solution.</p>
 
         <h2>UI implementation notes</h2>
 
@@ -126,16 +127,16 @@ export default function ERecruitmentPage() {
           <div className="inline-flex flex-row gap-5 max-w-[600px]">
 
             <figure className="text-center">
-              <a href={MY_eRecruitment_calculator_AD_1.src} target='_blank'>
-                <img src={MY_eRecruitment_calculator_AD_1.src} />
+              <a href={MY_eRecruitment_calculator_AD_1.src} target='_blank' rel="noreferrer">
+                <Image src={MY_eRecruitment_calculator_AD_1} alt={""} />
               </a>
               {/* caption */}
               <figcaption>Iterated Mockup</figcaption>
             </figure>
 
             <figure className="text-center">
-              <a href={MY_eRecruitment_calculator_AD_1_real.src} target='_blank'>
-                <img src={MY_eRecruitment_calculator_AD_1_real.src} />
+              <a href={MY_eRecruitment_calculator_AD_1_real.src} target='_blank' rel="noreferrer">
+                <Image src={MY_eRecruitment_calculator_AD_1_real} alt={""} />
               </a>
               {/* caption */}
               <figcaption>Production (Android 11)</figcaption>
@@ -147,29 +148,29 @@ export default function ERecruitmentPage() {
           <div className="inline-flex flex-row gap-5 max-w-[600px]">
 
             <figure className="text-center">
-              <a href={MY_eRecruitment_calculator_AD_2.src} target='_blank'>
-                <img src={MY_eRecruitment_calculator_AD_2.src} />
+              <a href={MY_eRecruitment_calculator_AD_2.src} target='_blank' rel="noreferrer">
+                <Image src={MY_eRecruitment_calculator_AD_2} alt={""} />
               </a>
               <figcaption>Iterated Mockup</figcaption>
             </figure>
 
             <figure className="text-center">
-              <a href={MY_eRecruitment_calculator_AD_2_real.src} target='_blank'>
-                <img src={MY_eRecruitment_calculator_AD_2_real.src} />
+              <a href={MY_eRecruitment_calculator_AD_2_real.src} target='_blank' rel="noreferrer">
+                <Image src={MY_eRecruitment_calculator_AD_2_real} alt={""} />
               </a>
               <figcaption>Production</figcaption>
             </figure>
           </div>
         </div>
 
-        <p>This screen, for instance, mostly involved using RN's <a target="_blank" href="https://reactnative.dev/docs/animated">Animated</a> and <a target="_blank" href="https://reactnative.dev/docs/panresponder">PanResponder</a> libraries for peak performance; in particular <code>Animated.Value.interpolate</code> to derive the position at which UI elements like the slider tooltip / handles or the graph should be (the graph changes in real time as the users interact with the sliders), and calculating the angle with respect to 0° and the center of the interactive donut in the <code>onPanResponderMove</code> callback.</p>
+        <p>This screen, for instance, mostly involved using RN's <a target="_blank" href="https://reactnative.dev/docs/animated" rel="noreferrer">Animated</a> and <a target="_blank" href="https://reactnative.dev/docs/panresponder" rel="noreferrer">PanResponder</a> libraries for peak performance; in particular <code>Animated.Value.interpolate</code> to derive the position at which UI elements like the slider tooltip / handles or the graph should be (the graph changes in real time as the users interact with the sliders), and calculating the angle with respect to 0° and the center of the interactive donut in the <code>onPanResponderMove</code> callback.</p>
 
         {/* calc design ends here */}
         <div className="mx-auto max-w-[600px]">
 
           <figure className="text-center">
-            <a href={mockup_form_ux.src} target='_blank'>
-              <img src={mockup_form_ux.src} />
+            <a href={mockup_form_ux.src} target='_blank' rel="noreferrer">
+              <Image src={mockup_form_ux} alt={""} />
             </a>
             {/* caption */}
             <figcaption>Form sections UX mockup</figcaption>
@@ -199,7 +200,7 @@ export default function ERecruitmentPage() {
           Due to <strong>1</strong>, <strong>3</strong> and <strong>4</strong>, the form had to be manipulated in memory and only flushed to disk when the user tapped "Save" or the session went idle and the in-memory form was in a valid state.
         </p>
 
-        <p><code>react-native-form</code> <a target="_blank" href="https://react-hook-form.com/faqs/#:~:text=React%20Hook%20Form%20is%20focusing,for%20the%20initial%20input%20value.">keeps form state in the (virtual) DOM</a>; i.e. prefers uncontrolled inputs for performance reasons. It also supports controlled components by means of a <code>Controller</code> HOC, which depends on a <strong>control</strong> variable returned from the <code>useForm</code> hook which initializes the form. Given that eRecruitment made extensive use of controlled inputs (e.g. dropdowns and keeping track of whether a form section was "dirty"), this would have required initializing and exposing the form in a globally accessible way via Context or Redux anyways.</p>
+        <p><code>react-native-form</code> <a target="_blank" href="https://react-hook-form.com/faqs/#:~:text=React%20Hook%20Form%20is%20focusing,for%20the%20initial%20input%20value." rel="noreferrer">keeps form state in the (virtual) DOM</a>; i.e. prefers uncontrolled inputs for performance reasons. It also supports controlled components by means of a <code>Controller</code> HOC, which depends on a <strong>control</strong> variable returned from the <code>useForm</code> hook which initializes the form. Given that eRecruitment made extensive use of controlled inputs (e.g. dropdowns and keeping track of whether a form section was "dirty"), this would have required initializing and exposing the form in a globally accessible way via Context or Redux anyways.</p>
 
         <p>The effort to work around the abstractions of said libraries would have been significant, hence the decision was made to store the form data directly in Redux and write pure actions that created new forms, deleted forms, wrote to or erased a particular form field, etc. in a reducer.</p>
 
@@ -218,21 +219,21 @@ export default function ERecruitmentPage() {
           <div className="inline-flex flex-row gap-5 max-w-[600px]">
 
             <figure className="text-center">
-              <a href={mockup_form_section_d.src} target='_blank'>
-                <img src={mockup_form_section_d.src} />
+              <a href={mockup_form_section_d.src} target='_blank' rel="noreferrer">
+                <Image src={mockup_form_section_d} alt={""} />
               </a>
               {/* caption */}
               <figcaption>Iterated Mockup</figcaption>
             </figure>
 
             <figure className="text-center">
-              <a href={form_section_d.src} target='_blank'>
-                <img src={form_section_d.src} />
+              <a href={form_section_d.src} target='_blank' rel="noreferrer">
+                <Image src={form_section_d} alt={""} />
               </a>
               {/* caption */}
               <figcaption>
                 <p>Production</p>
-                <p>The top-right circular icon in the <a target="_blank" href="https://reactnavigation.org/docs/bottom-tab-navigator#header-related-options">header of the Material Top Tabs navigator</a> is a component <code>connect</code>ed to the Redux store. It is shown if the focused form has been modified but not saved and reverts the form to its previous state.</p>
+                <p>The top-right circular icon in the <a target="_blank" href="https://reactnavigation.org/docs/bottom-tab-navigator#header-related-options" rel="noreferrer">header of the Material Top Tabs navigator</a> is a component <code>connect</code>ed to the Redux store. It is shown if the focused form has been modified but not saved and reverts the form to its previous state.</p>
               </figcaption>
             </figure>
           </div>
@@ -242,15 +243,15 @@ export default function ERecruitmentPage() {
           <div className="inline-flex flex-row gap-5 max-w-[600px]">
 
             <figure className="text-center">
-              <a href={mockup_form_section_a.src} target='_blank'>
-                <img src={mockup_form_section_a.src} />
+              <a href={mockup_form_section_a.src} target='_blank' rel="noreferrer">
+                <Image src={mockup_form_section_a} alt={""} />
               </a>
               <figcaption>Iterated Mockup</figcaption>
             </figure>
 
             <figure className="text-center">
-              <a href={form_section_a.src} target='_blank'>
-                <img src={form_section_a.src} />
+              <a href={form_section_a.src} target='_blank' rel="noreferrer">
+                <Image src={form_section_a} alt={""} />
               </a>
               <figcaption>
                 <p>Production</p>

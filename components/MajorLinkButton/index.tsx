@@ -4,7 +4,7 @@ import { BsApple, BsArrowRightCircle, BsBrowserFirefox, BsGithub, BsGooglePlay }
 
 export default function MajorLinkButton(props: PropsWithChildren<{ text: string, href: string }>) {
   const { text, href } = props;
-  return <Link href={href} passHref>
+  return <Link legacyBehavior href={href} passHref>
     <a className="flex flex-row space-x-2 items-center bg-slate-500 hover:bg-slate-600 focus:outline-none focus:ring focus:ring-slate-300 active:bg-slate-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white">
       <span className="whitespace-nowrap text-lg">{text}</span>
       <BsArrowRightCircle size={20} />

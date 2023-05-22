@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Image from "next/image";
 import BlurbSubtitle from "../../components/BlurbSubtitle";
 import BlurbTitle from "../../components/BlurbTitle";
 import HeaderLayout from "../../components/HeaderLayout";
@@ -129,8 +130,8 @@ export default function FormularyPage() {
 
         <div className="overflow-x-auto">
           <div className="mx-auto w-[1024px]">
-            <a href={formulary_response_time_percentiles.src} target='_blank'>
-              <img src={formulary_response_time_percentiles.src} />
+            <a href={formulary_response_time_percentiles.src} target='_blank' rel="noreferrer">
+              <Image src={formulary_response_time_percentiles} alt={""} />
             </a>
           </div>
         </div>
@@ -142,8 +143,8 @@ export default function FormularyPage() {
 
             {/* <div className="overflow-x-auto"> */}
             <div className="mx-auto max-w-[768px]">
-              <a href={formulary_android_mau.src} target='_blank'>
-                <img src={formulary_android_mau.src} />
+              <a href={formulary_android_mau.src} target='_blank' rel="noreferrer">
+                <Image src={formulary_android_mau} alt={""} />
               </a>
             </div>
             {/* </div> */}
@@ -157,8 +158,8 @@ export default function FormularyPage() {
 
             {/* <div className="overflow-x-auto"> */}
             <div className="mx-auto max-w-[768px]">
-              <a href={formulary_ios_mau.src} target='_blank'>
-                <img src={formulary_ios_mau.src} />
+              <a href={formulary_ios_mau.src} target='_blank' rel="noreferrer">
+                <Image src={formulary_ios_mau} alt={""} />
               </a>
             </div>
             {/* </div> */}

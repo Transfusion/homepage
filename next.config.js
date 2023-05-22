@@ -1,12 +1,22 @@
-const withPWA = require("next-pwa");
+const withPWA = require("@ducanh2912/next-pwa").default({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  // disable: process.env.NODE_ENV === "development",
+  // register: true,
+  // scope: "/app",
+  // sw: "service-worker.js",
+  //...
+});
+
 
 module.exports = withPWA({
   reactStrictMode: true,
-  pwa: {
-    dest: "public",
-    register: true,
-    skipWaiting: true,
-  },
+  // pwa: {
+  //   dest: "public",
+  //   register: true,
+  //   skipWaiting: true,
+  // },
 
   webpack(config, { dev }) {
     config.module.rules.push(

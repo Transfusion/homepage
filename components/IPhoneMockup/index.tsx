@@ -1,3 +1,4 @@
+import Image, { StaticImageData } from 'next/image';
 import styles from '../../styles/IPhoneMockup.module.css'
 
 import large_iphone_13 from '../../public/img/device-frames/iphone_hardware_zoomed__flki3nqhzhqq_large_2x.png';
@@ -37,9 +38,9 @@ export default function IPhoneMockup(props: IPhoneMockupProps) {
   const frame = AVAILABLE_MODELS[model][res];
   // max-w-[500px]
   return <div className=" relative snap-center drop-shadow-lg" style={{ minWidth: `${renderWidth}px`, maxWidth: `${renderWidth}px`, minHeight: renderHeight }}>
-    <img className={styles['screenshot_' + aspectRatio]} src={pic.src} />
+    <Image className={styles['screenshot_' + aspectRatio]} src={pic} alt={''} />
     <a href={pic.src} target='_blank'>
-      <img className={styles['device-frame']} src={frame.src} />
+      <Image className={styles['device-frame']} src={frame} alt={''} />
     </a>
   </div>
 }
@@ -60,10 +61,10 @@ export function IPhoneVideoMockup(props: IPhoneVideoMockupProps) {
   // max-w-[500px]
   return <div className=" relative snap-center drop-shadow-lg" style={{ minWidth: `${renderWidth}px`, maxWidth: `${renderWidth}px`, minHeight: renderHeight }}>
 
-    {/* <img className={styles['screenshot_' + aspectRatio]} src={pic.src} /> */}
+    {/* <Image className={styles['screenshot_' + aspectRatio]} src={pic.src} /> */}
     <video className={styles['screenshot_' + aspectRatio]} src={url} width={renderWidth} autoPlay muted controls loop playsInline />
     {/* <a href={pic.src} target='_blank'> */}
-    <img className={classnames(styles['device-frame'], 'pointer-events-none')} src={frame.src} />
+    <Image className={classnames(styles['device-frame'], 'pointer-events-none')} src={frame} alt={''} />
     {/* </a> */}
   </div>
 }

@@ -15,15 +15,15 @@ export default function FFDevTools(props: React.ComponentPropsWithoutRef<"div">)
     <article className="prose dark:prose-invert max-w-none leading-normal">
       {/* <ul> */}
       <p>
-        <a target="_blank" href="https://hacks.mozilla.org/2020/01/firefox-72-our-first-song-of-2020/#:~:text=SignalR%20formatting">Added support for the SignalR protocol to the WebSocket Inspector.</a>
+        <a target="_blank" href="https://hacks.mozilla.org/2020/01/firefox-72-our-first-song-of-2020/#:~:text=SignalR%20formatting" rel="noreferrer">Added support for the SignalR protocol to the WebSocket Inspector.</a>
       </p>
 
       <p>
-        <a target="_blank" href="https://bugzilla.mozilla.org/show_bug.cgi?id=1592535">Added a clickable stack trace</a> to identify the <a target="_blank" href="https://bugzilla.mozilla.org/show_bug.cgi?id=1618417">initiator of a network request</a> in the network monitor.
+        <a target="_blank" href="https://bugzilla.mozilla.org/show_bug.cgi?id=1592535" rel="noreferrer">Added a clickable stack trace</a> to identify the <a target="_blank" href="https://bugzilla.mozilla.org/show_bug.cgi?id=1618417" rel="noreferrer">initiator of a network request</a> in the network monitor.
       </p>
 
       <p>
-        <a target="_blank" href="https://blog.nightly.mozilla.org/2019/07/12/these-weeks-in-firefox-issue-60/#:~:text=made%20it%20so%20that%20the%20nascent" >Improved the UX of multiline input in the browser console.</a>
+        <a target="_blank" href="https://blog.nightly.mozilla.org/2019/07/12/these-weeks-in-firefox-issue-60/#:~:text=made%20it%20so%20that%20the%20nascent" rel="noreferrer" >Improved the UX of multiline input in the browser console.</a>
       </p>
 
       {/* </ul> */}
