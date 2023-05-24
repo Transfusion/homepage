@@ -44,7 +44,7 @@ export default function ERecruitment(props: React.ComponentPropsWithoutRef<"div"
       }} size={40} className="absolute top-1/2 right-2 cursor-pointer opacity-75 fill-slate-400 hover:fill-slate-600" />
     </div>
 
-    <KeywordPillbox keywords={[<strong>Java</strong>, <strong>Kotlin</strong>, <strong>Spring Boot</strong>, <strong>Spring Security</strong>, <strong>Hibernate</strong>, <strong>QueryDSL</strong>, 'MSSQL', <strong>MapStruct</strong>, <strong>Python</strong>, 'Swagger', 'OpenAPI', 'Wildfly', 'React Native', 'Redux', 'Angular', 'OAuth2', <strong>CI/CD</strong>, <strong>Docker</strong>, <strong>150+ MAU</strong>]} />
+    <KeywordPillbox keywords={[<strong>Java</strong>, <strong>Kotlin</strong>, <strong>Spring Boot</strong>, <strong>Spring Security</strong>, <strong>Hibernate</strong>, <strong>QueryDSL</strong>, 'MSSQL', <strong>MapStruct</strong>, <strong>Python</strong>, 'Swagger', 'OpenAPI', 'Wildfly', 'React Native', 'Redux', 'Angular', 'OAuth2', <strong>CI/CD</strong>, <strong>Docker</strong>, <strong>200+ MAU</strong>]} />
 
     <article className="prose dark:prose-invert max-w-none leading-normal">
       <p>
@@ -52,6 +52,21 @@ export default function ERecruitment(props: React.ComponentPropsWithoutRef<"div"
       </p>
 
       <p>
+        Architected and implemented the RESTful backend with <strong>Spring Boot</strong>, MSSQL, Flyway, <strong>MapStruct</strong> and <strong>Hibernate</strong> for the mobile app, web dashboard, and sessionless signup form.
+      </p>
+
+      <p>Added <strong>300+ intranet users</strong> and granted access to other teams by extending eRecruitment to act as an <strong>OAuth2 resource server</strong> with <strong>Keycloak</strong>; wrote extensions exposing endpoints to query for users by custom attributes.</p>
+
+      <p>Refactored SQL queries using <strong>QueryDSL</strong> instead of <strong>JPQL</strong> or native queries to improve maintainability and reduced load by caching intensive queries in Redis via Spring's CacheManager interface.
+      </p>
+
+      <p><strong>Singlehandedly</strong> developed the entire mobile app for recruiters in the field; used <strong>d3-shape</strong> and <strong>react-native-svg</strong> for the interactive calculator and charts, <strong>Redux</strong> and <strong>Realm</strong> for <strong>offline-capable forms</strong> with complex, cross-section validation requirements.
+      </p>
+
+      <p>Set up a <strong>GitLab CI/CD</strong> pipeline that built and deployed <strong>Docker</strong> images into production using docker-compose and Traefik.</p>
+
+
+      {/* <p>
         After landing the project, led requirements elicitation sessions with the management team and implemented projected income calculation logic for the organizational hierarchy <strong>as a TypeScript library with 100% unit test coverage in Jest</strong> for subsequent reusability on the web and Node.js.
       </p>
 
@@ -77,9 +92,9 @@ export default function ERecruitment(props: React.ComponentPropsWithoutRef<"div"
 
       <p>Supported <strong>300+ more users</strong> seamlessly by extending eRecruitment to act as an <strong>OAuth2 resource server</strong> with <strong>Keycloak</strong> as the authorization server. Granted access to other teams with service accounts and generated API documentation with <strong>springdoc-openapi</strong> and <strong>Swagger</strong>. Wrote a Keycloak extension implementing SPIs that exposed new endpoints to query for users based on custom attributes.</p>
 
-      <p><strong>Docker</strong>ized eRecruitment and used <strong>docker-compose</strong> to spin up identical instances effortlessly.</p>
+      <p><strong>Docker</strong>ized eRecruitment and used <strong>docker-compose</strong> to spin up identical instances effortlessly.</p> */}
 
-      <p>Achieved complete paperless recruiting in <strong>80%+</strong> of new cases, with <strong>150+ MAU</strong> across <strong>9 distribution channels.</strong></p>
+      <p>Achieved complete paperless recruiting in <strong>80%+</strong> of new cases, with <strong>200+ MAU</strong> across <strong>9 distribution channels.</strong></p>
     </article>
 
     <div className="flex justify-end pt-5">
