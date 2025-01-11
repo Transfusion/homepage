@@ -1,3 +1,4 @@
+import type { JSX } from "react";
 export default function KeywordPillbox({ keywords }: { keywords: (JSX.Element | string)[] }) {
   return <div className="inline-block flex-row flex-wrap -mx-1 py-2">
     {keywords.map(word => <>
