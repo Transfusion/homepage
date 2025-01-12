@@ -1,3 +1,4 @@
+import type { JSX } from "react";
 type WorkDescriptionProps = {
     bg_component: JSX.Element,
     title: String,

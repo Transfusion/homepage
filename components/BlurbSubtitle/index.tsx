@@ -1,10 +1,7 @@
-import styled, { StyledProps } from 'styled-components';
+import styled from 'styled-components';
+import { cn } from '../../helpers/utils';
 
-type BlurbSubTitleProps = StyledProps<{
-    className?: string;
-}>
-
-export default styled.p.attrs((props: BlurbSubTitleProps) => ({
+export default styled.p.attrs<{className?: string}>((props) => ({
     // className: ['text-4xl', 'font-bold'],
-    className: ['text-sm', 'md:text-base']
+    className: cn(['text-sm', 'md:text-base'])
 }))``;

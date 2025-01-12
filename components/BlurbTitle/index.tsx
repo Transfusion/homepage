@@ -1,11 +1,8 @@
-import styled, { StyledProps } from 'styled-components';
+import styled from 'styled-components';
+import { cn } from '../../helpers/utils';
 
-type BlurbTitleProps = StyledProps<{
-    className?: string;
-}>
-
-export default styled.h1.attrs((props: BlurbTitleProps) => ({
-    className: ['text-4xl', 'font-bold'],
+export default styled.h1.attrs<{ className?: string }>((props) => ({
+    className: cn(['text-4xl', 'font-bold']),
 }))`
     color: var(--colors-primary)
 `;
