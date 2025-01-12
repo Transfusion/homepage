@@ -1,11 +1,8 @@
-import styled, { StyledProps } from 'styled-components';
+import styled from 'styled-components';
+import { cn } from '../../helpers/utils';
 
-type SubtitleComponentProps = StyledProps<{
-    className?: string;
-}>
-
-export default styled.h1.attrs((props: SubtitleComponentProps) => ({
-    className: ['text-xl', 'font-normal'],
+export default styled.h1.attrs<{ className?: string }>((props) => ({
+    className: cn(['text-xl', 'font-normal']),
 }))`
     color: var(--colors-primary)
 `;
